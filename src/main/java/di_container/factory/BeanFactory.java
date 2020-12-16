@@ -6,6 +6,7 @@ import di_container.config.JavaConfiguration;
 import di_container.configurator.BeanConfigurator;
 import di_container.configurator.JavaBeanConfigurator;
 import di_container.context.ApplicationContext;
+import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class BeanFactory {
 
     private final Configuration configuration;
+    @Getter
     private final BeanConfigurator beanConfigurator;
     private ApplicationContext applicationContext;
 

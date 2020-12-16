@@ -1,7 +1,9 @@
 package di_container.context;
 
 import di_container.factory.BeanFactory;
+import di_container.postprocessor.BeanPostProcessor;
 import lombok.Setter;
+import lombok.SneakyThrows;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,10 +22,19 @@ public class ApplicationContext {
             return (T) beanMap.get(clazz);
         }
         T bean = beanFactory.getBean(clazz);
+        callPostProcessors(bean);
 
         beanMap.put(clazz, bean);
 
         return bean;
 
+    }
+
+    @SneakyThrows
+    private void callPostProcessors(Object bean) {
+        for(Class processor : beanFactory.getBeanConfigurator().getScanner().getSubTypesOf(BeanPostProcessor.class)) {
+            BeanPostProcessor beanPostProcessor = (BeanPostProcessor) processor.getDeclaredConstructor().newInstance();
+            beanPostProcessor.process(bean);
+        }
     }
 }

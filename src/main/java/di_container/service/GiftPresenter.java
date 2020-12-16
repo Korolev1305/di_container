@@ -1,6 +1,7 @@
 package di_container.service;
 
 import di_container.annotation.Inject;
+import di_container.annotation.PostConstruct;
 import di_container.model.Gift;
 import di_container.model.Person;
 
@@ -14,6 +15,11 @@ public class GiftPresenter {
 
     @Inject
     private PaymentSystem paymentSystem;
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("Gift presenter has been initialized");
+    }
 
 
     public void present(Person person) {

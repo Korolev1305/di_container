@@ -1,5 +1,6 @@
 package di_container.configurator;
 
+import lombok.Getter;
 import org.reflections.Reflections;
 
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 public class JavaBeanConfigurator implements BeanConfigurator {
 
+    @Getter
     private final Reflections scanner;
     private final Map<Class,Class> interfaceToImplementation;
     public JavaBeanConfigurator(String packageToScan,  Map<Class,Class> interfaceToImplementation) {
